@@ -3,6 +3,7 @@ package br.com.zupacademy.mayza.transacao.mensagem;
 import br.com.zupacademy.mayza.transacao.modelo.Cartao;
 import br.com.zupacademy.mayza.transacao.modelo.Estabelecimento;
 import br.com.zupacademy.mayza.transacao.modelo.Transacao;
+import br.com.zupacademy.mayza.transacao.repositorio.CartaoRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -15,9 +16,9 @@ public class TransacaoMensagem {
     private CartaoMensagem cartao;
     private String efetivadaEm;
 
-    public Transacao toTransacao() {
+    public Transacao toTransacao(CartaoRepository cartaoRepository) {
         Estabelecimento estabelecimento = this.estabelecimento.toEstabelecimento();
-        Cartao cartao = this.cartao.toCartao();
+        Cartao cartao = this.cartao.toCartao(cartaoRepository);
         return new Transacao(id, valor, estabelecimento, cartao, LocalDateTime.parse(efetivadaEm));
     }
 
